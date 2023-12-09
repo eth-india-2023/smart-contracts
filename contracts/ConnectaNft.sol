@@ -37,6 +37,8 @@ contract ConnectaNft is Context, ERC721Enumerable {
 
     /// @dev mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
+    
+    mapping (address => uint) public token;
 
     modifier onlyOperator() {
         require(
@@ -77,6 +79,7 @@ contract ConnectaNft is Context, ERC721Enumerable {
         Counter++;
         uint256 currentTokenID = Counter;
         _safeMint(creator, currentTokenID);
+        token[_msgSender()] = currentTokenID;
         _setTokenURI(currentTokenID, metadataURI);
 
         emit AssetIssued(currentTokenID, creator, metadataURI);
