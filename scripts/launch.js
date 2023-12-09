@@ -46,7 +46,6 @@ async function ConnectaTicketDeploy() {
         constructorParam.param4,
         constructorParam.param5,
         constructorParam.param6,
-        constructorParam.param7
     )
 
     await ConnectaTicket.deployed()
@@ -64,55 +63,8 @@ async function ConnectaTicketDeploy() {
             constructorParam.param3,
             constructorParam.param4,
             constructorParam.param5,
-            constructorParam.param6,
-            constructorParam.param7
-        ])
-    }
-}
-
-async function ConnectaShareDeploy() {
-    const constructorParam = jsonContent.constructorParams
-    const ConnectaShareFactory = await hre.ethers.getContractFactory("ConnectaShare")
-    const ConnectaShare = await ConnectaShareFactory.deploy(
-        constructorParam.param1,
-        constructorParam.param2,
-        constructorParam.param3,
-        constructorParam.param4,
-        constructorParam.param5,
-        constructorParam.param6
-    )
-    await ConnectaShare.deployed()
-    console.log("ConnectaShare Deployed to:", ConnectaShare.address)
-    contractAddress = ConnectaShare.address
-    blockNumber = ConnectaShare.provider._maxInternalBlockNumber
-    /// VERIFY
-    if (hre.network.name != "hardhat") {
-        await ConnectaShare.deployTransaction.wait(6)
-        await verify(ConnectaShare.address, [
-            constructorParam.param1,
-            constructorParam.param2,
-            constructorParam.param3,
-            constructorParam.param4,
-            constructorParam.param5,
             constructorParam.param6
         ])
-    }
-}
-
-async function Token() {
-    const TokenFactory = await hre.ethers.getContractFactory("MyToken")
-    const token = await TokenFactory.deploy()
-
-    await token.deployed()
-
-    console.log("Token Deployed to:", token.address)
-    contractAddress = token.address
-    blockNumber = token.provider._maxInternalBlockNumber
-
-    /// VERIFY
-    if (hre.network.name != "hardhat") {
-        await token.deployTransaction.wait(6)
-        await verify(token.address, [])
     }
 }
 
@@ -122,14 +74,9 @@ async function main() {
         await ConnectaNftDeploy()
     }
 
-    if (jsonContent.contractName == "DreamStarterHolder") {
+    if (jsonContent.contractName == "ConnectaTicket") {
         await ConnectaTicketDeploy()
     }
-
-    if (jsonContent.contractName == "DreamStarterCollab") {
-        await ConnectaShareDeploy()
-    }
-
     /// ERC20 
     if (jsonContent.contractName == "Token") {
         await Token()
