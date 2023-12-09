@@ -8,19 +8,6 @@ import type { IACCESSMASTER, IACCESSMASTERInterface } from "../IACCESSMASTER";
 
 const _abi = [
   {
-    inputs: [],
-    name: "getPayoutAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
